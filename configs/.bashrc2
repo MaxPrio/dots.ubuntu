@@ -1,0 +1,25 @@
+#!/bin/bash
+
+#path
+export PATH="~/.bin:$PATH"
+
+#Prompt
+PS1='\[\e[01;38;5;240m\]\u\[\e[01;38;5;160m\]⚡\[\e[01;38;5;240m\]| \[\e[01;38;5;31m\]\w\[\e[01;38;5;240m\]\n↪        \[\e[01;38;5;28m\]\$ \[\033[00m\]'
+
+# wp-script alialel
+alias wpwp='wp-script info'
+alias wpwpi='wp-script info'
+alias wpwpc='wp-script change'
+alias wpwps='wp-script save'
+alias wpwpus='wp-script unsave'
+alias wpwpr='wp-script remove'
+
+# fzf key-bindings and completion
+source /usr/share/doc/fzf/examples/key-bindings.bash
+source /usr/share/doc/fzf/examples/completion.bash
+
+# Initialize SSH_AUTH_SOCK and launch gpg-agent
+export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+gpgconf --launch gpg-agent
+export GPG_TTY=$(tty)
+gpg-connect-agent updatestartuptty /bye >/dev/null

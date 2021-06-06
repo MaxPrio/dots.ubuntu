@@ -1,0 +1,18 @@
+    <!--    
+    INSERTED APPLICATION ENTRIES
+  -->
+    <application class="*">
+      <focus>yes</focus>
+      <decor>no</decor>
+      <x>center</x>
+      <y>center</y>
+      <width>75%</width>
+      <height>75%</height>
+    </application>
+  <application class="vivaldi-stable">
+    <maximized>true</maximized>
+    <decor>yes</decor>
+  </application>
+    <!--    
+    END OF INSERTED APPLICATION ENTRIES
+  -->
