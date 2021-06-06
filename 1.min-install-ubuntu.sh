@@ -85,3 +85,16 @@ GPUdriver=$( ubuntu-drivers devices | tee $tty | grep recommended | sed 's/^.*:\
 
 #info (reboot first)
 #lspci -k | grep -EA3 'VGA|3D|Display'
+
+### MINIMAL DESKTOP
+echo 'Installing minimal desktop ...'
+apt_ins openbox rxvt-unicode-256color ncurses-term rofi feh
+apt_ins ranger highlight xsel w3m-img
+# vim
+apt_ins vim-gtk xkb-switch 
+    # vimplug
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+        # install plugins
+vim -es -u ~/.vimrc -i NONE -c "PlugInstall" -c "qa"
+
+
