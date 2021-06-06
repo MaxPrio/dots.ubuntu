@@ -26,8 +26,17 @@ echo ''
 cat <<"EOF"
 1. For minimal install do not mark any lines in the extra software list.
 2. reboot and login into console ( Contrl+Alt+F1 if no login prompt )
-3. To set up font:.$ sudo dpkg-reconfigure console-setup
-4. $ sudo apt update && sudo apt upgrade
-5. Get the min-install-ubuntu.sh script:
+3. Set up font
+    sudo dpkg-reconfigure console-setup
+4. Make sure the clock is right:
+    timedatectl set-ntp true 
+5. Clone the dots.ubuntu repository:
+    sudo apt insall git
+    mkdir  ~/.gits
+    cd ~/.gits
+    git clone https://github.com/maxprio/dots.ubuntu
+6. Run the install script:
+    cd dots.ubuntu
+    bash 0.min-insall-ubuntu.sh
 
 EOF
