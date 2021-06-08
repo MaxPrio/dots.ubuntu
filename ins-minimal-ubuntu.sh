@@ -13,27 +13,35 @@ sudo apt upgrade
 
 ### MODIFING SYSTEM CONFIGS
 # autologin
-sudo mkdir -pv /etc/systemd/system/getty@tty1.service.d/
-sudo bash << EOFF
+
+REPLY=''
+echo -n "AUTOLOGIN FOR USER $USER. < y|any > ? "
+read -n 1 -r REPLY
+echo ''
+if [[ $REPLY =~ ^[yY]$ ]]
+    then
+        sudo mkdir -pv /etc/systemd/system/getty@tty1.service.d/
+sudo bash <<EOFF
 cat > /etc/systemd/system/getty@tty1.service.d/autologin.conf <<EOF
 [Service]
 ExecStart=
 ExecStart=-/sbin/agetty --autologin $USER --noclear %I 38400 linux
 EOF
 EOFF
-sudo systemctl enable getty@tty1.service
+        sudo systemctl enable getty@tty1.service
+    fi
 
-# text booting
+# Verbose booting into tty1 login prompt.
 sudo bash << EOF
 cp /etc/default/grub /etc/default/grub.bak 
 sed -i '/GRUB_CMDLINE_LINUX_DEFAULT=/ s/\(^.*=\).*$/#&\n\1"text"/' /etc/default/grub 
 EOF
-sudo sudo update-grub
+sudo update-grub
 
-# Allow executing some sudo commands without providing a password.
-sudo bash << "EOFF"
+# Allow executing some sudo commands without providing the user password.
+sudo bash <<"EOFF"
 cp /etc/sudoers /etc/sudoers.bak
-cat >> /etc/sudoers << "EOF"
+cat >> /etc/sudoers <<"EOF"
 #
 # Allow members of group sudo to execut some commands without providing a password.
 %sudo   ALL=(ALL) NOPASSWD: /sbin/poweroff, /sbin/reboot, /sbin/shutdown
@@ -42,7 +50,7 @@ EOFF
 
 ### INSTALLING PRIMARY TOOLS ...
 echo 'Installing primary tools ...'
-apt_ins + software-properties-common curl
+apt_ins + software-properties-common curl bc
 
 ### XSERVER
 echo 'Installing X11-xserver ...'
@@ -87,7 +95,7 @@ GPUdriver=$( ubuntu-drivers devices | tee $tty | grep recommended | sed 's/^.*:\
 #lspci -k | grep -EA3 'VGA|3D|Display'
 
 ### MINIMAL DESKTOP
-echo 'Installing minimal desktop ...'
+echo 'INSTALLING BEAR MINIMUM DESKTOP ENVIERMENT: ( openbox; urvt; rofi; vim )...'
 apt_ins openbox rxvt-unicode-256color ncurses-term rofi feh
 apt_ins ranger highlight xsel w3m-img
 # vim

@@ -35,8 +35,9 @@ cat <<"EOF"
     mkdir  ~/.gits
     cd ~/.gits
     git clone https://github.com/maxprio/dots.ubuntu
+    git clone https://github.com/maxprio/scripts
 6. Run the install script:
     cd dots.ubuntu
-    bash 0.min-insall-ubuntu.sh
+    bash ins-minimal-ubuntu.sh
 
 EOF
