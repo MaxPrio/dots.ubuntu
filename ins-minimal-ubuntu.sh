@@ -52,6 +52,21 @@ EOFF
 echo 'Installing primary tools ...'
 apt_ins + software-properties-common curl bc
 
+### SOUND
+apt_ins alsa alsa-utils
+alsa_msg () {
+    echo '
+    SETTING UP SOUND
+    test:     speaker-test -Dplug:front -c2
+    devices:  aplay -L
+    settings: alsamixer
+              P.S. ballance with the Q, Z, E and C keys 
+    save:     alsactl --file ~/.config/alsamixer.state store
+    restore:  alsactl --file ~/.config/alsamixer.state restore
+
+'
+}
+
 ### XSERVER
 echo 'Installing X11-xserver ...'
 apt_ins xorg xinit x11-xserver-utils
@@ -101,8 +116,12 @@ apt_ins ranger highlight xsel w3m-img
 # vim
 apt_ins vim-gtk xkb-switch 
     # vimplug
-curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+[[ ! -f ~/.vim/autoload/plug.vim ]] \
+    && curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
         # install plugins
-vim -es -u ~/.vimrc -i NONE -c "PlugInstall" -c "qa"
+[[ -f ~/.vimrc ]] \
+    && vim -es -u ~/.vimrc -i NONE -c "PlugInstall" -c "qa"
 
+### OUT MASSAGE:
+alsa_msg
 

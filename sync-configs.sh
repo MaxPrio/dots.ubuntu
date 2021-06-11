@@ -15,15 +15,22 @@ while read back_file
                 front_dir=${front_file%/*}
                 [[ ! -d $front_dir ]] && mkdir -p $front_dir
                 cp $back_file $front_file
+                echo "restored:  '$front_file'"
             else
                 back_mt=$( date +%s --date "$(stat -c %y $back_file)" )
                 front_mt=$( date +%s --date "$(stat -c %y $front_file)" )
                 [[ $front_mt -gt $back_mt ]] \
-                    && \cp $front_file $back_file
+                    && \cp $front_file $back_file \
+                    && echo "backed up: '$fornt_file'"
                 [[ $front_mt -lt $back_mt ]] \
-                    && \cp $back_file $front_file
+                    && \cp $back_file $front_file \
+                    && echo "upgraded:  '$fornt_file'"
             fi
 
     done < <( find . -type f )
+
+echo '
+ All the backed up config files are synced.
+'
 
 cd - 2&>/dev/null

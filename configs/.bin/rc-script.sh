@@ -7,3 +7,7 @@ feh --no-fehbg --bg-fill ~/.wallpaper
 
 # urvt settings
 xrdb -merge ~/.Xresources
+
+# sound
+[[ -f ~/.config/alsamixer.state ]] \
+    && alsactl --file ~/.config/alsamixer.state restore
