@@ -51,6 +51,7 @@ EOFF
 ### INSTALLING PRIMARY TOOLS ...
 echo 'Installing primary tools ...'
 apt_ins + software-properties-common curl bc
+apt_ins + install atool zip unzip arc arj lzip lzop nomarch p7zip-full rar rpm unace unalz unrar zstd
 
 ### SOUND
 apt_ins alsa alsa-utils
